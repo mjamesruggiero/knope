@@ -19,3 +19,9 @@ WHERE id = :id
 -- :doc delete a user given the id
 DELETE FROM users
 WHERE id = :id
+
+-- :name create-page! :insert :raw
+INSERT INTO pages (uri_slug, title) VALUES (:uri_slug, :title)
+
+-- :name create-revision! :insert :raw
+INSERT INTO revisions (page_id, body) VALUES (:page_id, :body)
