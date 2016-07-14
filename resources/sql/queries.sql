@@ -25,3 +25,11 @@ INSERT INTO pages (uri_slug, title) VALUES (:uri_slug, :title)
 
 -- :name create-revision! :insert :raw
 INSERT INTO revisions (page_id, body) VALUES (:page_id, :body)
+
+-- :name find-page-by-uri-slug :query :one
+SELECT pages.*, revisions.body
+FROM pages, revisions
+WHERE pages.id = page_id
+AND uri_slug = :uri_slug
+ORDER by revisions.created_at DESC
+LIMIT 1
