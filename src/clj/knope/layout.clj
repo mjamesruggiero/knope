@@ -4,13 +4,28 @@
             [markdown.core :refer [md-to-html-string]]
             [ring.util.http-response :refer [content-type ok]]
             [ring.util.anti-forgery :refer [anti-forgery-field]]
-            [ring.middleware.anti-forgery :refer [*anti-forgery-token*]]))
+            [ring.middleware.anti-forgery :refer [*anti-forgery-token*]]
+            [clojure.string :as str]
+            [knope.db.core :refer [find-page-by-uri-slug]]))
 
 
 (declare ^:dynamic *app-context*)
 (parser/set-resource-path!  (clojure.java.io/resource "templates"))
 (parser/add-tag! :csrf-field (fn [_ _] (anti-forgery-field)))
 (filters/add-filter! :markdown (fn [content] [:safe (md-to-html-string content)]))
+
+(defn- title->uri-slug [title]
+  (str/lower-case (str/replace title #"\W+" "-")))
+
+(defn wiki-links [content]
+  (str/replace content #"\[\[([^\]]+)\]\]"
+               (fn [[_ title]]
+                 (let [uri-slug (title->uri-slug title)]
+                   (if (find-page-by-uri-slug {:uri_slug uri-slug})
+                     (str "<a href=\"" uri-slug "\">" title "</a>")
+                     (str "<a class=\"new-page-link\" href=\"" uri-slug "/edit\">" title "</a>"))))))
+
+(filters/add-filter! :wiki-links wiki-links)
 
 (defn render
   "renders the HTML template located relative to resources/templates"
