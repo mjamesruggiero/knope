@@ -1,7 +1,7 @@
 (defproject knope "0.1.0-SNAPSHOT"
 
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
+  :description "Wiki powered by Luminus"
+  :url "http://mjamesruggiero.com/knope"
 
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [selmer "1.0.7"]
@@ -25,7 +25,8 @@
                  [conman "0.5.8"]
                  [org.postgresql/postgresql "9.4-1206-jdbc4"]
                  [org.webjars/webjars-locator-jboss-vfs "0.1.0"]
-                 [luminus-immutant "0.2.2"]]
+                 [luminus-immutant "0.2.2"]
+                 [hiccup "1.0.5"]]
 
   :min-lein-version "2.0.0"
 
@@ -42,7 +43,6 @@
 
   :profiles
   {:uberjar {:omit-source true
-             
              :aot :all
              :uberjar-name "knope.jar"
              :source-paths ["env/prod/clj"]
@@ -56,7 +56,7 @@
                                  [ring/ring-devel "1.5.0"]
                                  [pjstadig/humane-test-output "0.8.0"]]
                   :plugins      [[com.jakemccrary/lein-test-refresh "0.14.0"]]
-                  
+
                   :source-paths ["env/dev/clj" "test/clj"]
                   :resource-paths ["env/dev/resources"]
                   :repl-options {:init-ns user}
