@@ -1,20 +1,6 @@
 # knope
 
-A toy wiki. Trying to learn Luminus.
-
-## Prerequisites
-
-You will need [Leiningen][1] 2.0 or above installed.
-
-[1]: https://github.com/technomancy/leiningen
-
-Generated using Luminus version `2.9.10.78`
-
-## Running
-
-To start a web server for the application, run:
-
-    lein run
+Working on Ring fundamentals.
 
 ## Named after
 
